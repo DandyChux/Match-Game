@@ -22,16 +22,7 @@ After the function call the parentElement should look like this:
 
 To accomplish this, the function is should create the new card element (i.e. .card), append it as a child to the parentElement (i.e. #card-container), and return the new card element.
 */
-function appendNewCard(parentElement) {
-  var newCard = document.createElement('div');
-  newCard.classList.add('card');
-  var cardDown = document.createElement('div');
-  cardDown.classList.add('card-down');
-  var cardUp = document.createElement('div');
-  cardUp.classList.add('card-up');
-  parentElement.appendChild(newCard);
-  return newCard;
-}
+function appendNewCard(parentElement) {}
 
 appendNewCardTest();
 /***  shuffleCardImageClasses()
@@ -43,10 +34,7 @@ INPUT/OUTPUT:
 Returns an array with 12 randomly ordered image classes (i.e. image-X, where X is a value between 1 and 6). There should be exactly 2 of each image class in the array.
 */
 
-function shuffleCardImageClasses() {
-  var images = [];
-  var rand = Math.floor(Math.random() * images.length);
-} // shuffleCardImageClassesTest();
+function shuffleCardImageClasses() {} // shuffleCardImageClassesTest();
 
 /***  createCards()
 

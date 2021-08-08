@@ -1,3 +1,5 @@
+const { object } = require('underscore');
+
 /***  appendNewCard(parentElement)  <----- START HERE!
 
 OVERVIEW:
@@ -22,16 +24,18 @@ To accomplish this, the function is should create the new card element (i.e. .ca
 */
 function appendNewCard(parentElement) {
   // Step 1: Make a variable for the card element. Assign it to a new div element.
-
+  const newCard = document.createElement('div');
   // Step 2: Add the "card" class to the card element.
-
+  newCard.classList.add('card');
   // Step 3: Write the HTML for the children of the card element (card-down and card-up) as a normal string and assign it as the innerHTML of the card element.
-
+  let innerCard = document.getElementsByClassName('card').innerHTML;
+  innerCard = '<div class="card-down"></div> <div class="card-up"></div>';
   // Step 4: Append the card element to the parentElement, making the card element a "child".
-
+  parentElement.appendChild(newCard);
   // Step 5: Return the card element.
+  return newCard;
 }
-// appendNewCardTest();
+appendNewCardTest();
 
 
 /***  shuffleCardImageClasses()
@@ -45,17 +49,18 @@ Returns an array with 12 randomly ordered image classes (i.e. image-X, where X i
 function shuffleCardImageClasses() {
   
   // Step 1: Initialize an array of 2 of each image class strings in-order (e.g. "image-1", "image-1", "image-2"...)
-
-  /* Step 2: We're going to use a library to randomly "shuffle" the array we created. The library is called "underscore.js" because it uses an "_" charector as an object to contain helper methods.  Load underscore.js in your HTML via the CDN and then look at the "shuffle" method.  Note to ignore the "require" syntax as this is for non-browser environments (i.e. the var "_" will already be available to you from loading the CDN).
-   
+  var imageArray = ['image-1', 'image-1', 'image-2', 'image-2', 'image-3', 'image-3', 'image-4', 'image-4', 'image-5', 'image-', 'image-6', 'image-6'];
+  /* Step 2: We're going to use a library to randomly "shuffle" the array we created. The library is called "underscore.js" because it uses an "_" charector as an object to contain helper methods.  Load underscore.js in your HTML via the CDN and then look at the "shuffle" method.  Note to ignore the "require" syntax as this is for non-browser environments (i.e. the var "_" will already be available to you from loading the CDN). 
   CDN: https://cdnjs.com/libraries/underscore.js/1.4.1
    
   Shuffle: https://www.tutorialspoint.com/underscorejs/underscorejs_shuffle.htm
    */
-   
+  var _ = require('underscore');
+  rand = _.shuffle(imageArray);
   // Step 3: Return the shuffled array of class names.
+  return rand;
 }
-// shuffleCardImageClassesTest();
+shuffleCardImageClassesTest();
 
 
 /***  createCards()
@@ -72,24 +77,30 @@ Returns an array of card objects to track all the cards for the rest of our prog
 */
 function createCards(parentElement, shuffledImageClasses) {
   // Step 1: Make an empty array to hold our card objects.
-
+  const objectArray = [];
   // Step 2: Loop 12 times to create the 12 cards we need.
-
+  for(let i = 0; i <= shuffledImageClasses; i++) {
     // Step 2(a): Use appendNewCard to create/append a new card and store the result in a variable.
-
+    var createCard = appendNewCard(parentElement);
     // Step 2(b): Add an image class to the new card element, using shuffledImageClasses[i].
-
+    createCard.classList.add(shuffledImageClasses[i]);
     /* Step 2(c): Create a new object representing this card. This should have properties for:
        "index" -- what iteration of the loop is this.
        "element" -- the dom element for the card
        "imageClass" -- the string of the image class on the card.
     */
-
+    var cardDetails = {
+      index: i,
+      element: document.getElementsByClassName('card'),
+      imageClass: shuffledImageClasses[i],
+    };
     // Step 2(d): Append the new card object to the array of card objects.
-
+    objectArray.appendChild(cardDetails);
+  }
   // Step 3: Return the array of 12 card objects.
+  return objectArray;
 }
-// createCardsTest();
+createCardsTest();
 
 
 /***  doCardsMatch
@@ -105,8 +116,14 @@ The 'cardObject2' parameter is the second card object in the comparison.
 The function should return 'true' when both cards have the same imageClass property and 'false' otherwise.
 */
 function doCardsMatch(cardObject1, cardObject2) {
+  if(cardObject1[imageClass] == cardObject2[imageClass]) {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
-// doCardsMatchTest();
+doCardsMatchTest();
 
 
 /* An object used below as a dictionary to store counter names and their respective values.  Do you remember using objects as dictionaries? If not, go back to that lecture to review. */
@@ -127,18 +144,21 @@ This function should use the global 'counters' object above to store counter nam
 */
 function incrementCounter(counterName, parentElement) {
   // Step 1: If the 'counterName' property is not defined in the 'counters' object, add it with a value of 0.
-
+  if('counterName' in counters == false) {
+    counters.counterName = 0;
+  }
   // Step 2: Increment the counter for 'counterName'.
-
+  var countUp = counterName.parentElement.innerHTML;
+  countUp++;
   // Step 3: Change the DOM within 'parentElement' to display the new counter value.
 }
-// incrementCounterTest();
+incrementCounterTest();
 
 
 /* Variables storing an audio objects to make the various sounds.  See how it's used for the 'click' sound in the provided function below.  */
 let clickAudio = new Audio('audio/click.wav');
 let matchAudio = new Audio('audio/match.wav');
-let winAudio = new Audio('audio/win.wav')
+let winAudio = new Audio('audio/win.wav');
 
 
 /***  flipCardWhenClicked
