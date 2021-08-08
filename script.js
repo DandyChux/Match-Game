@@ -55,7 +55,6 @@ function shuffleCardImageClasses() {
    
   Shuffle: https://www.tutorialspoint.com/underscorejs/underscorejs_shuffle.htm
    */
-  var _ = require('underscore');
   rand = _.shuffle(imageArray);
   // Step 3: Return the shuffled array of class names.
   return rand;
@@ -148,9 +147,11 @@ function incrementCounter(counterName, parentElement) {
     counters.counterName = 0;
   }
   // Step 2: Increment the counter for 'counterName'.
-  var countUp = counterName.parentElement.innerHTML;
+  var countUp = 0;
   countUp++;
   // Step 3: Change the DOM within 'parentElement' to display the new counter value.
+  var innerCounter = parentElement.innerHTML;
+  innerCounter = countUp; 
 }
 incrementCounterTest();
 
